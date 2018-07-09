@@ -26,3 +26,11 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.row-striped:nth-of-type(odd){
+  background-color: #E9F7EF;
+}
+
+.row-striped:nth-of-type(even){
+  background-color: #D4EFDF;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Dashboard from '../Comnponents/Dashboard';
 
 class HomePage extends Component {
   render() {
@@ -9,7 +9,8 @@ class HomePage extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12">
-             </div>
+                <Dashboard />
+            </div>
           </div>
         </div>
       </div>
