@@ -1,6 +1,7 @@
 import React from 'react';
-import NavItem from './NavItem'
-import {Link} from "react-router-dom";
+//import NavItem from './NavItem'
+//import {Link} from "react-router-dom";
+import JobAdd from '../JobAdd'
 
 class NavBar extends React.Component{
 
@@ -25,7 +26,7 @@ class NavBar extends React.Component{
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        
+                        <JobAdd />
                     </div>
                 </div>
             </nav >
