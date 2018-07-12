@@ -1,10 +1,12 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const Computer = (props) => {
 
 
     return (
-            <div className="row row-striped">
+     
+        <Link className=" row row-striped" to= {`/computer/${props.id}`}>
                 <div className="col-1">
                     {props.bay}
                 </div>
@@ -20,7 +22,9 @@ const Computer = (props) => {
                 <div className="col-3">
                 {props.current_status}
                 </div>
-            </div>
+                
+            </Link>
+            
     )
 }
 
