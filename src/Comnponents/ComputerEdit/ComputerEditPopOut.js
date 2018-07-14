@@ -28,8 +28,11 @@ class ComputerEditPopOut extends React.Component {
     }
 
     openModalProgress = () => {
-        this.setState({ modalIsOpen: true, DialogSelect: 'Progress' });
-        
+        if (this.props.stage === '3'){
+            this.setState({ modalIsOpen: true, DialogSelect: 'Complete' });
+        } else{
+            this.setState({ modalIsOpen: true, DialogSelect: 'Progress' });
+        }
      }
 
      openModalComplete = () => {
@@ -47,13 +50,11 @@ class ComputerEditPopOut extends React.Component {
         if (this.state.DialogSelect === 'Update'){
             return <UpdateJob handleModalCloseRequest={this.handleModalCloseRequest}/>
 
-        } else if (this.state.DialogSelect === 'Progress'){
-
-            return <ProgressJob stage={'1'} handleModalCloseRequest={this.handleModalCloseRequest}/>
-
-        } else if (this.state.DialogSelect === 'Complete') {
+        } else if (this.state.DialogSelect === 'Complete' || this.state.Stage === '3') {
             return <CompleteJob handleModalCloseRequest={this.handleModalCloseRequest}/>
-        }
+        } else if (this.state.DialogSelect === 'Progress'){
+            return <ProgressJob stage={this.props.stage} handleModalCloseRequest={this.handleModalCloseRequest}/>
+        } 
 
         
     }
@@ -86,10 +87,13 @@ class ComputerEditPopOut extends React.Component {
         return (
 
 
-            <div>
-                <button type="button" className="btn btn-sm btn-outline-secondary" onClick={this.openModalProgress}>Progress</button>
-                <button type="button" className="btn btn-sm btn-outline-secondary" onClick={this.openModalUpdate}>Update Status</button>
-                <button type="button" className="btn btn-sm btn-outline-secondary" onClick={this.openModalComplete}>Mark As Complete</button>
+            <div className="row">
+                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalProgress}>Progress</button></div>
+                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalUpdate}>Update Status</button></div>
+                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalComplete}>Mark As Complete</button></div>
+                
+                
+                
                 <Modal
                     className="Modal__Bootstrap modal-dialog"
                     closeTimeoutMS={150}
