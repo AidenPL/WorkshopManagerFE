@@ -60,7 +60,7 @@ class JobAdd extends React.Component {
 
 
             <div>
-                <button type="button" className="btn btn-sm btn-outline-secondary" onClick={this.openModal}>Add New Repair</button>
+                <button type="button" className="btn btn-sm btn-outline-light" onClick={this.openModal}>Add New Repair</button>
                 <Modal
                     className="Modal__Bootstrap modal-dialog"
                     closeTimeoutMS={150}

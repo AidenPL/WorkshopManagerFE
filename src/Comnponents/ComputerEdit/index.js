@@ -13,6 +13,7 @@ class ComputerEdit extends React.Component {
         Customer: '',
         Issue: '',
         Date: '', 
+        Stage: '',
         CompanyList: []
     }
 
@@ -31,6 +32,7 @@ class ComputerEdit extends React.Component {
                     Issue: body.Computer.issue,
                     computers: body.Computer,
                     Date: body.Computer.date,
+                    Stage: body.Computer.stage,
                     loading: false
                 })
             })
@@ -47,6 +49,16 @@ class ComputerEdit extends React.Component {
         })   
     }
 
+    StageSelect = () => {
+        if (this.state.Stage === "1"){
+            return <div className="bg-danger rounded" style={{paddingLeft: '7px', paddingTop: '6px', paddingBottom: '1px', marginBottom: '10px'}}><h4>Stage 1 - Booking In</h4></div>
+        }else if(this.state.Stage === "2"){
+            return <div className="bg-warning rounded" style={{paddingLeft: '7px', paddingTop: '6px', paddingBottom: '1px', marginBottom: '10px'}}><h4>Stage 2 - In Progress</h4></div>
+        }else if(this.state.Stage === "3"){
+            return <div className="bg-success rounded" style={{paddingLeft: '7px', paddingTop: '6px', paddingBottom: '1px', marginBottom: '10px'}}><h4>Stage 3 - Booking Out</h4></div>
+        }
+    }
+
     handleChange = (e) => {
 
         this.setState({
@@ -61,8 +73,10 @@ class ComputerEdit extends React.Component {
 
                 <div className="col-md-12">
                     <form action="#" method="get" className="col-md-8" style={{ margin: 'auto' }}>
-                        <br /><h2>Edit Computer for {this.state.Customer}</h2><br />
-                        <div className="bg-danger"><h4>Stage 1 - Booking In</h4></div>
+                        <br /><h2>Edit Job for {this.state.Customer}</h2><br />
+                        
+                        {this.StageSelect()}
+
                         <div className="form-row">
                             <div className="form-group col-md-2">
                                 <label>Bay:</label>
@@ -88,7 +102,7 @@ class ComputerEdit extends React.Component {
                                 </select>
                             </div>
                             <div className="form-group col-md-4">
-                                <label>Date Arrive/Due to Arrive:</label>
+                                <label>Date Arrived/Due:</label>
                                 <input type="select" className="form-control" value={this.state.Date} onChange={this.state.handleChange} id="Date" />
                             </div>
                         </div>
@@ -99,8 +113,20 @@ class ComputerEdit extends React.Component {
                                 <input type="text" className="form-control" value={this.state.Issue} onChange={this.handleChange} id="Issue" />
                             </div>
                         </div>
-                        <PopOut />
+                        <PopOut stage={this.state.Stage}/>
                     </form>
+
+                    <div className="col-md-8 mt-4" style={{ margin: 'auto' }}>
+                        <h4>latest Updates</h4>
+                        
+                        <div className="row border rounded border-dark ml-1 pl-3 pt-3 pb-0 mb-2">
+                        <p>08/08/18 - Updated the AV on the laptop</p>
+                        </div>
+                        <div className="row border rounded border-dark ml-1 pl-3 pt-3 pb-0 mb-1">
+                        <p>02/07/18 - Running Diagnostics</p>
+                        </div>
+
+                    </div>
                     
                 </div>
                 
