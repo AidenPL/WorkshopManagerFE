@@ -19,7 +19,7 @@ class NavBar extends React.Component{
 
         return(
     
-            <nav className = "navbar navbar-expand-lg navbar-dark bg-dark" style={{height: '30px'}}>
+            <nav className = "navbar navbar-expand-md navbar-dark bg-dark" style={{height: '30px'}}>
                 <div className="navbar-brand">Workshop Manager</div>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
