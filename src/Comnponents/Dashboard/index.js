@@ -16,7 +16,7 @@ class Dashboard extends React.Component {
       })
       .then(body => {
         this.setState({
-            computers: body.Computer,
+          computers: body.Computer,
           loading: false
         })
       })
@@ -27,7 +27,7 @@ class Dashboard extends React.Component {
     return (
 
       <div>
-        <h2>Homepage</h2>
+        <h2>Current Jobs</h2>
         <div className="col-12">
         
         <div className="row">
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
                 </div>
             </div>
         {this.state.computers.map(computer => {
-          return <Computer id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user}/>
+          return <Computer key={computer._id} id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.name}/>
         })}
         </div>
       </div>
