@@ -1,6 +1,5 @@
 import React from 'react';
 import Computer from './computer';
-import Addnew from '../JobAdd'
 
 class Dashboard extends React.Component {
 
@@ -49,10 +48,9 @@ class Dashboard extends React.Component {
                 </div>
             </div>
         {this.state.computers.map(computer => {
-          return <Computer id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.name}/>
+          return <Computer id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user}/>
         })}
         </div>
-        <Addnew />
       </div>
     )
   }
