@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from 'react-modal';
-import axios from 'axios'
 import ProgressJob from './ProgressJob'
 import UpdateJob from './UpdateStatus'
 import CompleteJob from './CompleteJob'
@@ -11,12 +10,13 @@ class ComputerEditPopOut extends React.Component {
         modalIsOpen: false,
         computers: [],
         loading: true,
-        DialogSelect: 'Update'
-
+        DialogSelect: 'Update',
+        Date: '',
+        Status: ''
     }
 
     handleChange = (e) => {
-
+        console.log()
         this.setState({
             [e.target.id]: e.target.value
         })
@@ -45,41 +45,31 @@ class ComputerEditPopOut extends React.Component {
         this.setState({ modalIsOpen: false });
     }
 
+    progressStageMiddle = () => {
+        if (this.props.stage === '1'){
+            this.props.progressStage(this.state.Date, this.state.Status, 2)
+        } else if (this.props.stage === '2'){
+            this.props.progressStage(this.state.Date, this.state.Status, 3)
+        }
+    }
+
     SelectDialog =() => {
         
         if (this.state.DialogSelect === 'Update'){
             return <UpdateJob handleModalCloseRequest={this.handleModalCloseRequest}/>
 
         } else if (this.state.DialogSelect === 'Complete' || this.state.Stage === '3') {
-            return <CompleteJob handleModalCloseRequest={this.handleModalCloseRequest}/>
+            return <CompleteJob handleChange={this.handleChange} handleModalCloseRequest={this.handleModalCloseRequest}/>
         } else if (this.state.DialogSelect === 'Progress'){
-            return <ProgressJob stage={this.props.stage} handleModalCloseRequest={this.handleModalCloseRequest}/>
+            return <ProgressJob stage={this.props.stage} Date={this.state.Date} Status={this.state.Status} handleChange={this.handleChange} progressStageMiddle={this.progressStageMiddle} handleModalCloseRequest={this.handleModalCloseRequest}/>
         } 
 
         
     }
 
-    postJob = () => {
-
-        axios.post('http://localhost:5000/api/computer', {
-            ref: this.state.JobRef,
-            bay: this.state.Bay,
-            issue: this.state.Issue,
-            current_status: this.state.CurrentStatus,
-            end_user: this.state.Customer
-        })
-            .then(res => {
-                console.log(res)
-                this.setState((prevState) => ({
-
-                    computers: [...prevState.computers, res.data.computers]
-                }))
-            })
-            .catch(console.log)
-    }
-
     componentWillMount() {
         Modal.setAppElement('body');
+        this.setState({Date: this.props.date})
      }
 
 
@@ -88,6 +78,7 @@ class ComputerEditPopOut extends React.Component {
 
 
             <div className="row">
+            
                 <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalProgress}>Progress</button></div>
                 <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalUpdate}>Update Status</button></div>
                 <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalComplete}>Mark As Complete</button></div>

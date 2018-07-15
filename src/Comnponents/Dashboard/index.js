@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
                 </div>
             </div>
         {this.state.computers.map(computer => {
-          return <Computer key={computer._id} id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.name}/>
+          return <Computer key={computer._id} id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.company_name}/>
         })}
         </div>
       </div>
