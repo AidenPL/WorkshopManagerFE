@@ -5,6 +5,8 @@ import { BrowserRouter, Route} from "react-router-dom";
 import HomePage from './Pages/HomePage'
 import ComputerEdit from './Pages/Computer'
 
+
+
 class App extends Component {
   render() {
     return (

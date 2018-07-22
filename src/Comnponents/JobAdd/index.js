@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import axios from 'axios'
+import CompanyDropdown from '../ComputerEdit/CompanyDropdown'
 
 var appElement = document.getElementById('example');
 
@@ -16,7 +17,11 @@ class JobAdd extends React.Component {
         JobRef: '',
         CurrentStatus: '',
         Customer: '',
-        Issue: ''
+        Issue: '',
+        Date: '',
+        Stage: '',
+        CompanyList: [],
+        CustomerId: ''
     }
 
     handleChange = (e) => {
@@ -25,6 +30,12 @@ class JobAdd extends React.Component {
             [e.target.id]: e.target.value
         })
     }
+
+    handleChangeCustomer = (e) => {
+    this.setState({
+        CustomerId : e.target.value
+    })
+}
 
     openModal = () => {
         this.setState({ modalIsOpen: true });
@@ -37,22 +48,46 @@ class JobAdd extends React.Component {
 
     postJob = () => {
 
-        axios.post('http://localhost:5000/api/computer', {
-            ref: this.state.JobRef,
-            bay: this.state.Bay,
-            issue: this.state.Issue,
-            current_status: this.state.CurrentStatus,
-            end_user: this.state.Customer
-        })
-            .then(res => {
-                console.log(res)
-                this.setState((prevState) => ({
+       console.log('test')
+       axios.post('https://al-workshop-manager.herokuapp.com/api/computer', {
+        ref: this.state.JobRef,
+        bay: this.state.Bay,
+        issue: this.state.Issue,
+        current_status: 'Awaiting Delivery',
+        end_user: this.state.CustomerId,
+        date: this.state.Date,
+        stage: '1'
 
-                    computers: [...prevState.computers, res.data.computers]
-                }))
-            })
-            .catch(console.log)
+    })
+        .then(res => {
+            console.log(res)
+            this.setState((prevState) => ({
+
+                computers: [...prevState.computers, res.data.computers]
+            }))
+        })
+        .catch(console.log)
     }
+
+    componentDidMount() {
+        fetch('https://al-workshop-manager.herokuapp.com/api/company') 
+        .then(res => {
+            
+            return res.json()
+        })
+        .then(body => {
+            
+            this.setState({
+                CompanyList: body.Company
+            })
+        })
+
+        
+    }
+
+    componentWillMount() {
+        Modal.setAppElement('body');
+     }
 
 
     render() {
@@ -85,18 +120,17 @@ class JobAdd extends React.Component {
                                             <input type="text" className="form-control" value={this.state.Bay} onChange={this.handleChange} id="Bay" />
                                         </div>
                                         <div className="form-group col-md-6">
-                                            <label>Current Status:</label>
-                                            <input type="text" className="form-control" value={this.state.CurrentStatus} onChange={this.handleChange} id="CurrentStatus" />
+                                            <label>Date Due In:</label>
+                                            <input type="text" className="form-control" value={this.state.Date} onChange={this.handleChange} id="Date" />
                                         </div>
                                     </div>
 
                                     <div className="form-row">
-                                        <div className="form-group col-md-12">
-                                            <label>Customer:</label>
-                                            <input type="text" className="form-control" value={this.state.Customer} onChange={this.handleChange} id="Customer" />
-                                        </div>
+                                    <div className="form-group col-md-12">
+                                    <CompanyDropdown CompanyList={this.state.CompanyList} handleChangeCustomer={this.handleChangeCustomer} CustomerId={this.state.CustomerId}/>
                                     </div>
-
+                                    </div>
+                                    
                                     <div className="form-row">
                                         <div className="form-group col-md-12">
                                             <label>Issue:</label>
@@ -108,7 +142,7 @@ class JobAdd extends React.Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-secondary" onSubmit={this.postJob}>Post</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.postJob}>Post</button>
                             <button type="button" className="btn btn-secondary" onClick={this.handleModalCloseRequest}>Close</button>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:5000/api/computer')
+    fetch('https://al-workshop-manager.herokuapp.com/api/computer')
       .then(res => {
         return res.json()
 

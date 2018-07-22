@@ -2,6 +2,7 @@ import React from 'react';
 import PopOut from './ComputerEditPopOut';
 import axios from 'axios'
 import CompanyDropdown from './CompanyDropdown'
+import Comments from './Comments'
 
 class ComputerEdit extends React.Component {
 
@@ -17,11 +18,12 @@ class ComputerEdit extends React.Component {
         Date: '', 
         Stage: '',
         CompanyList: [],
-        message: ''
+        message: '', 
+        Comments: []
     }
 
     componentDidMount() {
-        fetch(`http://localhost:5000/api/computer/${this.props.refid}`)
+        fetch(`https://al-workshop-manager.herokuapp.com/api/computer/${this.props.refid}`)
             .then(res => {
                 return res.json()
             })
@@ -41,7 +43,7 @@ class ComputerEdit extends React.Component {
                 })
             })
 
-        fetch('http://localhost:5000/api/company') 
+        fetch('https://al-workshop-manager.herokuapp.com/api/company') 
         .then(res => {
             
             return res.json()
@@ -50,6 +52,16 @@ class ComputerEdit extends React.Component {
             
             this.setState({
                 CompanyList: body.Company
+            })
+        })  
+        
+        fetch(`https://al-workshop-manager.herokuapp.com/api/comment/${this.props.refid}`) 
+        .then(res => {
+            return res.json()
+        })
+        .then(body => {
+            this.setState({
+                Comments: body.Comments
             })
         })   
     }
@@ -71,16 +83,15 @@ class ComputerEdit extends React.Component {
         })
     }
     handleChangeCustomer = (e) => {
-            console.log(e.target.getAttribute("iddd"));
+        console.log(e.target.value)
         this.setState({
-            CustomerName : e.target.value,
-            CustomerId : e.target.iddd
+            CustomerId : e.target.value
         })
     }
 
     updateJob = () => {
 
-        axios.put(`http://localhost:5000/api/computer/${this.props.refid}`, {
+        axios.put(`https://al-workshop-manager.herokuapp.com/api/computer/${this.props.refid}`, {
             ref: this.state.JobRef,
             bay: this.state.Bay,
             issue: this.state.Issue,
@@ -99,20 +110,20 @@ class ComputerEdit extends React.Component {
             .catch(console.log)
     }
 
-    progressStage = (date, status, stage) => {
+    progressStage = (date, status, stage, query, comment) => {
 
-        axios.put(`http://localhost:5000/api/computer/${this.props.refid}`, {
+        axios.put(`https://al-workshop-manager.herokuapp.com/api/computer/${this.props.refid}${query}`, {
             ref: this.state.JobRef,
             bay: this.state.Bay,
             issue: this.state.Issue,
             current_status: status,
             end_user: this.state.CustomerId,
             date: date,
-            stage: stage
+            stage: stage, 
+            comment: comment
         })
             .then(res => {
                 this.setState((prevState) => ({
-
                     computers: [...prevState.computers, res.data.Computer],
                     message: 'Job has been successfully updated'
                 }))
@@ -146,12 +157,12 @@ class ComputerEdit extends React.Component {
                         </div>
 
                         <div className="form-row">
-
-                                <CompanyDropdown CompanyList={this.state.CompanyList} handleChangeCustomer={this.handleChangeCustomer} CustomerName={this.state.CustomerName}/>
-
+                        <div className="form-group col-md-8">
+                                <CompanyDropdown CompanyList={this.state.CompanyList} handleChangeCustomer={this.handleChangeCustomer} CustomerId={this.state.CustomerId} CustomerName={this.state.CustomerName}/>
+                                </div>
                             <div className="form-group col-md-4">
                                 <label>Date Arrived/Due:</label>
-                                <input type="select" className="form-control" value={this.state.Date} onChange={this.state.handleChange} id="Date" />
+                                <input type="text" className="form-control" value={this.state.Date} onChange={this.handleChange} id="Date" />
                             </div>
                         </div>
 
@@ -170,14 +181,9 @@ class ComputerEdit extends React.Component {
 
                     <div className="col-md-10 mt-4" style={{ margin: 'auto' }}>
                         <h4>latest Updates</h4>
-                        
-                        <div className="row border rounded border-dark ml-1 pl-3 pt-3 pb-0 mb-2 mr-1">
-                        <p>08/08/18 - Updated the AV on the laptop</p>
-                        </div>
-                        <div className="row border rounded border-dark ml-1 pl-3 pt-3 pb-0 mb-1 mr-1">
-                        <p>02/07/18 - Running Diagnostics</p>
-                        </div>
-
+                        {this.state.Comments.map((comment) => {
+                            return <Comments date={comment.date} comment={comment.comment}/>
+                        })}
                     </div>
                     
                 </div>

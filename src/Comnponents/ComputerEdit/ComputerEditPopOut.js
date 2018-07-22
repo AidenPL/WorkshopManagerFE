@@ -47,16 +47,20 @@ class ComputerEditPopOut extends React.Component {
 
     progressStageMiddle = () => {
         if (this.props.stage === '1'){
-            this.props.progressStage(this.state.Date, this.state.Status, 2)
+            this.props.progressStage(this.state.Date, this.state.Status, 2, '?comment=true', `Progressed to In Progress - Status: ${this.state.Status}`)
         } else if (this.props.stage === '2'){
-            this.props.progressStage(this.state.Date, this.state.Status, 3)
+            this.props.progressStage(this.props.date, this.state.Status, 3, '?comment=true', `Progressed to Booking out - Status: ${this.state.Status}`)
         }
+    }
+
+    UpdateStatus = () => {
+        this.props.progressStage(this.props.date, this.state.Status, this.props.stage, '?comment=true', `Updated Status: ${this.state.Status}`)
     }
 
     SelectDialog =() => {
         
         if (this.state.DialogSelect === 'Update'){
-            return <UpdateJob handleModalCloseRequest={this.handleModalCloseRequest}/>
+            return <UpdateJob handleModalCloseRequest={this.handleModalCloseRequest} Status={this.state.Status} handleChange={this.handleChange} UpdateStatus={this.UpdateStatus}/>
 
         } else if (this.state.DialogSelect === 'Complete' || this.state.Stage === '3') {
             return <CompleteJob handleChange={this.handleChange} handleModalCloseRequest={this.handleModalCloseRequest}/>
