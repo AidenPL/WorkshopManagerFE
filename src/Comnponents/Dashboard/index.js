@@ -9,6 +9,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    console.log(process.env.REACT_APP_URL)
     fetch(`${process.env.REACT_APP_URL}/api/computer`)
       .then(res => {
         return res.json()
