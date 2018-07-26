@@ -49,7 +49,7 @@ class JobAdd extends React.Component {
     postJob = () => {
 
        console.log('test')
-       axios.post('https://al-workshop-manager.herokuapp.com/api/computer', {
+       axios.post('http://localhost:5000/api/computer', {
         ref: this.state.JobRef,
         bay: this.state.Bay,
         issue: this.state.Issue,
@@ -70,7 +70,7 @@ class JobAdd extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://al-workshop-manager.herokuapp.com/api/company') 
+        fetch('http://localhost:5000/api/company') 
         .then(res => {
             
             return res.json()

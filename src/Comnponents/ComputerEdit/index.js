@@ -23,7 +23,7 @@ class ComputerEdit extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`https://al-workshop-manager.herokuapp.com/api/computer/${this.props.refid}`)
+        fetch(`${process.env.REACT_APP_URL}/api/computer/${this.props.refid}`)
             .then(res => {
                 return res.json()
             })
@@ -43,7 +43,7 @@ class ComputerEdit extends React.Component {
                 })
             })
 
-        fetch('https://al-workshop-manager.herokuapp.com/api/company') 
+        fetch(`${process.env.REACT_APP_URL}/api/company`) 
         .then(res => {
             
             return res.json()
@@ -55,7 +55,7 @@ class ComputerEdit extends React.Component {
             })
         })  
         
-        fetch(`https://al-workshop-manager.herokuapp.com/api/comment/${this.props.refid}`) 
+        fetch(`${process.env.REACT_APP_URL}/api/comment/${this.props.refid}`) 
         .then(res => {
             return res.json()
         })
@@ -91,7 +91,7 @@ class ComputerEdit extends React.Component {
 
     updateJob = () => {
 
-        axios.put(`https://al-workshop-manager.herokuapp.com/api/computer/${this.props.refid}`, {
+        axios.put(`${process.env.REACT_APP_URL}/api/computer/${this.props.refid}`, {
             ref: this.state.JobRef,
             bay: this.state.Bay,
             issue: this.state.Issue,
@@ -112,7 +112,7 @@ class ComputerEdit extends React.Component {
 
     progressStage = (date, status, stage, query, comment) => {
 
-        axios.put(`https://al-workshop-manager.herokuapp.com/api/computer/${this.props.refid}${query}`, {
+        axios.put(`${process.env.REACT_APP_URL}/api/computer/${this.props.refid}${query}`, {
             ref: this.state.JobRef,
             bay: this.state.Bay,
             issue: this.state.Issue,
