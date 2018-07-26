@@ -1,5 +1,5 @@
 import React from 'react';
-import Computer from '../Dashboard/computer';
+import Computer from './computer';
 
 class WallBoard extends React.Component {
 
@@ -9,7 +9,7 @@ class WallBoard extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:5000/api/computer`)
+    fetch(`${process.env.REACT_APP_URL}/api/computer`)
       .then(res => {
         return res.json()
 
@@ -25,12 +25,13 @@ class WallBoard extends React.Component {
   render() {
 
     return (
-
+        
       <div>
+          <br />
         <h2>Awaiting Delivery</h2>
         <div className="col-12">
         
-        <div className="row">
+        <div className="row booking">
                 <div className="col-1">
                     <b>Bay</b>
                 </div>
@@ -48,14 +49,31 @@ class WallBoard extends React.Component {
                 </div>
             </div>
         {this.state.computers.map(computer => {
-          if (computer.stage === '1') return <Computer key={computer._id} id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.company_name}/>
+          if (computer.stage === '1') return <div className=" row row-striped-awaiting">
+          <div className="col-1">
+              {computer.bay}
+          </div>
+          <div className="col-2">
+          {computer.ref}
+          </div>
+          <div className="col-3">
+          {computer.end_user.company_name}
+          </div>
+          <div className="col-3">
+          {computer.issue}
+          </div>
+          <div className="col-3">
+          {computer.current_status}
+          </div>
+          
+      </div>
         })}
         </div>
         <br />
         <h2>In Progress</h2>
         <div className="col-12">
         
-        <div className="row">
+        <div className="row inprogress">
                 <div className="col-1">
                     <b>Bay</b>
                 </div>
@@ -71,16 +89,33 @@ class WallBoard extends React.Component {
                 <div className="col-3">
                 <b>Current Status</b>
                 </div>
-            </div>
+                </div>
         {this.state.computers.map(computer => {
-          if (computer.stage === '2') return <Computer key={computer._id} id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.company_name}/>
+          if (computer.stage === '2') return <div className=" row row-striped-progress">
+          <div className="col-1">
+              {computer.bay}
+          </div>
+          <div className="col-2">
+          {computer.ref}
+          </div>
+          <div className="col-3">
+          {computer.end_user.company_name}
+          </div>
+          <div className="col-3">
+          {computer.issue}
+          </div>
+          <div className="col-3">
+          {computer.current_status}
+          </div>
+          
+      </div>
         })}
         </div>
 <br />
         <h2>Ready For collection</h2>
         <div className="col-12">
         
-        <div className="row">
+        <div className="row complete">
                 <div className="col-1">
                     <b>Bay</b>
                 </div>
@@ -98,7 +133,24 @@ class WallBoard extends React.Component {
                 </div>
             </div>
         {this.state.computers.map(computer => {
-          if (computer.stage === '3') return <Computer key={computer._id} id={computer._id} bay={computer.bay} jobref={computer.ref} issue={computer.issue} current_status={computer.current_status} end_user={computer.end_user.company_name}/>
+          if (computer.stage === '3') return <div className=" row row-striped-collection">
+          <div className="col-1">
+              {computer.bay}
+          </div>
+          <div className="col-2">
+          {computer.ref}
+          </div>
+          <div className="col-3">
+          {computer.end_user.company_name}
+          </div>
+          <div className="col-3">
+          {computer.issue}
+          </div>
+          <div className="col-3">
+          {computer.current_status}
+          </div>
+          
+      </div>
         })}
         </div>
       </div>

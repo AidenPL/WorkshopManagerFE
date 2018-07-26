@@ -34,3 +34,46 @@
 .row-striped:nth-of-type(even){
   background-color: #D4EFDF;
 }
+
+.row-striped-awaiting:nth-of-type(odd){
+  background-color: #99c2ff;
+}
+
+.row-striped-awaiting:nth-of-type(even){
+  background-color: #80b3ff;
+}
+
+.row-striped-progress:nth-of-type(odd){
+  background-color: #ffb3ec;
+}
+
+.row-striped-progress:nth-of-type(even){
+  background-color: #ff99e6;
+}
+
+.row-striped-collection:nth-of-type(odd){
+  background-color: #c2f0c2;
+}
+
+.row-striped-collection:nth-of-type(even){
+  background-color: #99e699;
+}
+
+.inprogress{
+  background-color: #ff00bf;
+  color: white;
+}
+
+.booking{
+  background-color: #1a1aff;
+  color: white;
+}
+
+.complete{
+  background-color: #00b33c;
+  color: white;
+}
+
+h2{
+  color: white;
+}
