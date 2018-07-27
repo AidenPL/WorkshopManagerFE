@@ -83,9 +83,9 @@ class ComputerEditPopOut extends React.Component {
 
             <div className="row">
             
-                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalProgress}>Progress</button></div>
-                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalUpdate}>Update Status</button></div>
-                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.openModalComplete}>Mark As Complete</button></div>
+                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-light" onClick={this.openModalProgress}>Progress</button></div>
+                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-light" onClick={this.openModalUpdate}>Update Status</button></div>
+                <div className="col-md-4"><button type="button" className="btn btn-block btn-outline-light" onClick={this.openModalComplete}>Mark As Complete</button></div>
                 
                 
                 

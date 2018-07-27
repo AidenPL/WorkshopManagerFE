@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
         <h2>Current Jobs</h2>
         <div className="col-12">
         
-        <div className="row">
+        <div className="row complete">
                 <div className="col-1">
                     <b>Bay</b>
                 </div>

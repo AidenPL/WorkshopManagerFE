@@ -6,7 +6,7 @@ const Computer = (props) => {
 
     return (
      
-        <Link className=" row row-striped" to= {`/computer/${props.id}`}>
+        <Link className=" row row-striped-collection" to= {`/computer/${props.id}`}>
                 <div className="col-1">
                     {props.bay}
                 </div>

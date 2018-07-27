@@ -29,7 +29,7 @@ class WallBoard extends React.Component {
       <div>
           <br />
         <h2>Awaiting Delivery</h2>
-        <div className="col-12">
+        <div className="col-12">4
         
         <div className="row booking">
                 <div className="col-1">

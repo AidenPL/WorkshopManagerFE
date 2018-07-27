@@ -173,7 +173,7 @@ class ComputerEdit extends React.Component {
                             </div>
                         </div>
                         <div className="row mb-2">
-                        <div className="col-md-12"><button type="button" className="btn btn-block btn-outline-secondary" onClick={this.updateJob}>Update Job</button></div>
+                        <div className="col-md-12"><button type="button" className="btn btn-block btn-outline-light" onClick={this.updateJob}>Update Job</button></div>
                         </div>
 
                         <PopOut date={this.state.Date} progressStage={this.progressStage} stage={this.state.Stage}/>
